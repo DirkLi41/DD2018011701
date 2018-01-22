@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 //        dao = new StudentFileDAO(this);
-        dbtype = DBType.FILE;
+        dbtype = DBType.DB;
         dao = StudentDAOFactory.getDAOInstance(this, dbtype);
     }
 
