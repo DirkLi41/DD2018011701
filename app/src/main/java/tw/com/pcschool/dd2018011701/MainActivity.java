@@ -32,20 +32,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 //        dao = new StudentFileDAO(this);
-        dbtype = DBType.DB;
+        dbtype = DBType.CLOUD;
         dao = StudentDAOFactory.getDAOInstance(this, dbtype);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
 
         lv = (ListView) findViewById(R.id.listView);
-        studentName = new ArrayList<>();
-        for(Student s:dao.getList())
-        {
-            studentName.add(s.name);
-        }
+        studentName = new ArrayList<>();        //一建立就先連結ArrayList和Adapter,所以onResume的時候就不用再連結就能馬上更新檔案
         adapter = new ArrayAdapter<String>(
                 MainActivity.this,
                 android.R.layout.simple_list_item_1,
@@ -60,6 +51,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        refreshData();
+    }
+
+    public void refreshData()
+    {
+        studentName.clear();
+        for(Student s:dao.getList())
+        {
+            studentName.add(s.name);
+        }
+        adapter.notifyDataSetChanged();
     }
 
     @Override

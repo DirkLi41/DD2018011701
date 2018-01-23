@@ -5,5 +5,5 @@ package tw.com.pcschool.dd2018011701.data;
  */
 
 public enum DBType {
-    MEMORY, FILE, DB
+    MEMORY, FILE, DB, CLOUD
 }
